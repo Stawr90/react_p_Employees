@@ -17,8 +17,8 @@ class App extends Component {
         {name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2},
         {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
       ],
-      term: '',
-      filter: 'all'
+      term: '', //строка поиска
+      filter: 'all' //выбранная кнопка с фильтром
     }
     this.maxId = 4;
   }
@@ -58,37 +58,37 @@ class App extends Component {
     }))
   }
 
-  searchEmp = (items, term) => {
+  searchEmp = (items, term) => { //фильтрует массив по введенному поиску строке (строка приходит из this.state.term)
     if (term.length === 0) {
       return items;
     }
 
     return items.filter(item => {
-      return item.name.indexOf(term) > -1 //ищет фрагмент строки (совпадающий с term)
+      return item.name.indexOf(term) > -1 //ищет фрагмент строки name (совпадающий с term)
     })
   }
 
-  onUpdateSearch = (term) => {
-    this.setState({term});
+  onUpdateSearch = (term) => { //перезапишем в наше состояние главного компонента this.state.term
+    this.setState({term}); //сокращенная запись от {term: term} (term приходит из search-panel)
   }
 
-  filterPost = (items, filter) => {
+  filterPost = (items, filter) => { //фильтруем массив по выбранному фильтру (строка приходит из this.state.filter)
     switch (filter) {
       case 'rise':
-        return items.filter(item => item.rise);
+        return items.filter(item => item.rise); //т.е. rise === true
       case 'moreThen1000':
         return items.filter(item => item.salary > 1000);
-      default: 
+      default: //если не выбран фильтр, будет выбрана первая кнопка
         return items
       }
   }
 
-  onFilterSelect = (filter) => {
-    this.setState({filter});
+  onFilterSelect = (filter) => { //перезапишем в наше состояние главного компонента this.state.filter
+    this.setState({filter}); //filter приходит из app-filter
   }
 
   render() {
-    const {data, term, filter} = this.state;
+    const {data, term, filter} = this.state; //используем свойства из state для взаимодействия
     const employees = this.state.data.length;
     const increased = this.state.data.filter(item => item.increase).length;
     const visibleData = this.filterPost(this.searchEmp(data, term), filter); //комбинированный результат (фильтр по поиску, фильтр по кнопкам)
@@ -100,11 +100,12 @@ class App extends Component {
   
           <div className="search-panel">
             <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-            <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
+            <AppFilter filter={filter}
+            onFilterSelect={this.onFilterSelect}/>
           </div>
   
           <EmployeesList 
-            data={visibleData}
+            data={visibleData} //передаем уже новый отфильтрованный массив с данными
             onDelete={this.deleteItem}
             onToggleProp={this.onToggleProp}/>
           <EmployeesAddForm onAdd={this.addItem}/>
