@@ -17,8 +17,8 @@ class App extends Component {
         {name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2},
         {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
       ],
-      term: '', //строка поиска
-      filter: 'all' //выбранная кнопка с фильтром
+      term: '', //строка поиска (приходит из компонента, и перезаписывается)
+      filter: 'all' //выбранная кнопка с фильтром (приходит из компонента, и перезаписывается)
     }
     this.maxId = 4;
   }
