@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
+      data: [ //пример получения данных с сервера в виде массива объектов с данными (допустим пришли в JSON формате)
         {name: 'John C.', salary: 800, increase: false, rise: true, id: 1},
         {name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2},
         {name: 'Carl W.', salary: 5000, increase: false, rise: false, id: 3},
@@ -23,10 +23,10 @@ class App extends Component {
     this.maxId = 4;
   }
 
-  deleteItem = (id) => {
+  deleteItem = (id) => { //удаляем элемент с совпадающим id
     this.setState(({data}) => {
       return {
-        data: data.filter(item => item.id !== id)
+        data: data.filter(item => item.id !== id) //оставили все объекты с несовпадающими id
       }
     })
   }
@@ -40,7 +40,7 @@ class App extends Component {
       id: this.maxId++
     }
     this.setState(({data}) => {
-      const newArr = [...data, newItem];
+      const newArr = [...data, newItem]; //добавили в массив нового сотрудника
       return {
         data: newArr
       }
@@ -105,7 +105,7 @@ class App extends Component {
           </div>
   
           <EmployeesList 
-            data={visibleData} //передаем уже новый отфильтрованный массив с данными
+            data={visibleData} //передаем уже новый отфильтрованный массив с данными ниже
             onDelete={this.deleteItem}
             onToggleProp={this.onToggleProp}/>
           <EmployeesAddForm onAdd={this.addItem}/>

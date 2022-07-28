@@ -5,7 +5,7 @@ import './employees-list.css';
 const EmployeesList = ({data, onDelete, onToggleProp}) => {
 
     const elements = data.map(item => {
-        const {id, ...itemProps} = item;
+        const {id, ...itemProps} = item; //деструктуризация по остаточному принципу (вытаскиваем id)
         return (
             <EmployeesListItem 
             key={id} 
